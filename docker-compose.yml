@@ -1,0 +1,27 @@
+version: "3.5"
+
+services:
+  api:
+    build: .
+    container_name: "sns-sample-api"
+    ports:
+      - "18080:8080"
+    env_file:
+      - ./env/local.env
+    depends_on:
+      - db
+    networks:
+      - sns-sample-network
+  db:
+    image: mysql:5.6
+    container_name: "sns-sample-db"
+    ports:
+      - "13306:3306"
+    env_file:
+      - ./env/local.env
+    networks:
+      - sns-sample-network
+
+networks:
+  sns-sample-network:
+    name: sns-sample-network
